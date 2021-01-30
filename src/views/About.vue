@@ -5,14 +5,11 @@
 </template>
 
 <script>
-export default {
-  beforeRouteUpdate(to, from, next) {
-    // вызывается до подтверждения пути, соответствующего этому компоненту.
-    // НЕ ИМЕЕТ доступа к контексту экземпляра компонента `this`,
-    // так как к моменту вызова экземпляр ещё не создан!
-    const line = document.getElementById("line");
-    line.style.left = 60 + "px";
-    next();
-  },
-};
+export default {};
 </script>
+
+<style lang="scss">
+h1 {
+  text-align: center;
+}
+</style>

@@ -235,6 +235,7 @@
     line-height: 24px;
     letter-spacing: 0.18em;
     color: #d9d6dc;
+    text-transform: uppercase;
   }
 }
 </style>

@@ -32,30 +32,32 @@
 export default {
   name: "Header",
   data() {
-    return {
-      lineSettings: [
-        { position: 60, width: 60 },
-        { position: 80, width: 60 },
-        { position: 100, width: 60 },
-        { position: 120, width: 60 },
-      ],
-    };
+    return {};
   },
   computed: {
-    // currentLinePosition() {
-    //   if (this.$route.name == "Home") {
-    //     return this.lineSettings[0].position;
-    //   } else if (this.$route.name == "Farm") {
-    //     return this.lineSettings[1].position;
-    //   } else if (this.$route.name == "Invite") {
-    //     return this.lineSettings[2].position;
-    //   } else if (this.$route.name == "About") {
-    //     return this.lineSettings[3].position;
-    //   }
-    //   return 0;
-    // },
+    lineClassObject() {
+      if (this.$route.name == "Home") {
+        return {
+          "header__nav-line--first": true,
+        };
+      } else if (this.$route.name == "Farm") {
+        return {
+          "header__nav-line--second": true,
+        };
+      } else if (this.$route.name == "Invite") {
+        return {
+          "header__nav-line--third": true,
+        };
+      } else if (this.$route.name == "About") {
+        return {
+          "header__nav-line--fourth": true,
+        };
+      }
+      return {
+        left: 0,
+      };
+    },
   },
-  watch: {},
   methods: {
     setLine(nextPosition) {
       const line = document.getElementById("line");
@@ -72,8 +74,8 @@ export default {
             return;
           }
 
-          line.style.left = parseInt(left) + 2 + "px";
-        }, 5);
+          line.style.left = parseInt(left) + 1 + "px";
+        }, 2);
       } else {
         const timer = setInterval(function () {
           const line = document.getElementById("line");
@@ -83,9 +85,8 @@ export default {
             clearInterval(timer);
             return;
           }
-
-          line.style.left = parseInt(left) - 2 + "px";
-        }, 5);
+          line.style.left = parseInt(left) - 1 + "px";
+        }, 2);
       }
     },
   },
@@ -106,12 +107,15 @@ export default {
       }
     );
   },
+  beforeDestroy() {
+    const line = document.getElementById("line");
+    line.style.removeProperty("left");
+  },
 };
 </script>
 
 <style lang="scss">
 .header {
-  outline: 1px solid green;
   display: flex;
   justify-content: start;
   margin: 0 auto;
@@ -135,8 +139,19 @@ export default {
     width: 65px;
     background: #fff;
     position: absolute;
-    left: 0;
     bottom: 0;
+    &--first {
+      left: 0;
+    }
+    &--second {
+      left: 90px;
+    }
+    &--third {
+      left: 180px;
+    }
+    &--fourth {
+      left: 277px;
+    }
   }
   &__nav-item {
     margin-right: 28px;
