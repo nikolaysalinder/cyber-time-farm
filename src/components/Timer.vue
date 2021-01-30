@@ -12,6 +12,10 @@
       <span class="minutes countdown__time"></span>
       <span class="countdown__text">min</span>
     </div>
+    <div class="countdown-number">
+      <span class="seconds countdown__time"></span>
+      <span class="countdown__text">sec</span>
+    </div>
   </div>
 </template>
 
@@ -21,7 +25,7 @@ export default {
   mounted() {
     function getTimeRemaining(endtime) {
       let t = Date.parse(endtime) - Date.parse(new Date());
-
+      let seconds = Math.floor((t / 1000) % 60);
       let minutes = Math.floor((t / 1000 / 60) % 60);
       let hours = Math.floor((t / (1000 * 60 * 60)) % 24);
       let days = Math.floor(t / (1000 * 60 * 60 * 24));
@@ -30,6 +34,7 @@ export default {
         days: days,
         hours: hours,
         minutes: minutes,
+        seconds: seconds,
       };
     }
 
@@ -38,6 +43,7 @@ export default {
       let daysSpan = clock.querySelector(".days");
       let hoursSpan = clock.querySelector(".hours");
       let minutesSpan = clock.querySelector(".minutes");
+      let secondsSpan = clock.querySelector(".seconds");
 
       function updateClock() {
         let t = getTimeRemaining(endtime);
@@ -45,6 +51,7 @@ export default {
         daysSpan.innerHTML = t.days;
         hoursSpan.innerHTML = ("0" + t.hours).slice(-2);
         minutesSpan.innerHTML = ("0" + t.minutes).slice(-2);
+        secondsSpan.innerHTML = ("0" + t.seconds).slice(-2);
 
         if (t.total <= 0) {
           clearInterval(timeinterval);
@@ -55,7 +62,7 @@ export default {
       let timeinterval = setInterval(updateClock, 1000);
     }
 
-    let deadline = "2021-02-19"; // for endless timer
+    let deadline = "2021-02-19  "; // for endless timer
     initializeClock("countdown", deadline);
   },
 };

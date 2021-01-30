@@ -8,18 +8,19 @@
       <p class="home__text">Farm NFTL and CTF tokens</p>
       <p class="home__text--sm">Start of farming:</p>
     </div>
-    <Timer />
+    <Countdown />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 // import HelloWorld from "@/components/HelloWorld.vue";
-import Timer from "@/components/Timer.vue";
+import Countdown from "@/components/Countdown.vue";
+
 export default {
   name: "Home",
   components: {
-    Timer,
+    Countdown,
   },
 };
 </script>

@@ -16,12 +16,18 @@
           <router-link to="/farm" class="header__nav-link">Farm</router-link>
         </li>
         <li class="header__nav-item" @click="setLine(182)">
-          <router-link to="/invite" class="header__nav-link"
-            >Invite</router-link
+          <a
+            href="https://docs.cybertime.finance/community/evangelist-program"
+            class="header__nav-link"
+            >Share</a
           >
         </li>
         <li class="header__nav-item" @click="setLine(277)">
-          <router-link to="/about" class="header__nav-link">About</router-link>
+          <a
+            href=" https://docs.cybertime.finance/litepaper"
+            class="header__nav-link"
+            >About</a
+          >
         </li>
       </ul>
     </nav>
