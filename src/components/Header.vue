@@ -63,7 +63,6 @@ export default {
       const line = document.getElementById("line");
       const style = getComputedStyle(line);
       const left = style.getPropertyValue("left");
-      console.log(left, nextPosition);
       if (parseInt(left) < nextPosition) {
         const timer = setInterval(function () {
           const line = document.getElementById("line");
@@ -117,7 +116,7 @@ export default {
 <style lang="scss">
 .header {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   margin: 0 auto;
   width: 1200px;
   padding: 35px 10px;

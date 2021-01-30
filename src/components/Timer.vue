@@ -55,7 +55,7 @@ export default {
       let timeinterval = setInterval(updateClock, 1000);
     }
 
-    let deadline = "2021-02-18"; // for endless timer
+    let deadline = "2021-02-19"; // for endless timer
     initializeClock("countdown", deadline);
   },
 };
