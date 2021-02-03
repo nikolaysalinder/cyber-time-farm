@@ -1,9 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import vueAwesomeCountdown from "vue-awesome-countdown";
-
-Vue.use(vueAwesomeCountdown, "vac");
 
 Vue.config.productionTip = false;
 
