@@ -12,24 +12,32 @@
         <div class="currency__item-body">
           <ul class="coins">
             <li class="coins__item">
-              <img src="../assets/usdc.svg" alt="" class="coins__item-image" />
+              <img
+                src="./../../assets/usdc.svg"
+                alt=""
+                class="coins__item-image"
+              />
               <p class="coins__item-name">usdc</p>
             </li>
             <li class="coins__item">
               <img
-                src="./../assets/usdt.svg"
+                src="./../../assets/usdt.svg"
                 alt=""
                 class="coins__item-image"
               />
               <p class="coins__item-name">usdt</p>
             </li>
             <li class="coins__item">
-              <img src="./../assets/dai.svg" alt="" class="coins__item-image" />
+              <img
+                src="./../../assets/dai.svg"
+                alt=""
+                class="coins__item-image"
+              />
               <p class="coins__item-name">dai</p>
             </li>
             <li class="coins__item">
               <img
-                src="./../assets/tusd.svg"
+                src="./../../assets/tusd.svg"
                 alt=""
                 class="coins__item-image"
               />
@@ -46,23 +54,31 @@
           <ul class="coins">
             <li class="coins__item">
               <img
-                src="./../assets/usdc.svg"
+                src="./../../assets/usdc.svg"
                 alt=""
                 class="coins__item-image"
               />
               <p class="coins__item-name">link</p>
             </li>
             <li class="coins__item">
-              <img src="./../assets/uni.svg" alt="" class="coins__item-image" />
+              <img
+                src="./../../assets/uni.svg"
+                alt=""
+                class="coins__item-image"
+              />
               <p class="coins__item-name">uni</p>
             </li>
             <li class="coins__item">
-              <img src="./../assets/yfi.svg" alt="" class="coins__item-image" />
+              <img
+                src="./../../assets/yfi.svg"
+                alt=""
+                class="coins__item-image"
+              />
               <p class="coins__item-name">yfi</p>
             </li>
             <li class="coins__item">
               <img
-                src="./../assets/comp.svg"
+                src="./../../assets/comp.svg"
                 alt=""
                 class="coins__item-image"
               />
@@ -70,7 +86,7 @@
             </li>
             <li class="coins__item">
               <img
-                src="./../assets/aave.svg"
+                src="./../../assets/aave.svg"
                 alt=""
                 class="coins__item-image"
               />
@@ -78,7 +94,7 @@
             </li>
             <li class="coins__item">
               <img
-                src="./../assets/weth.svg"
+                src="./../../assets/weth.svg"
                 alt=""
                 class="coins__item-image"
               />
@@ -95,7 +111,7 @@
           <ul class="coins">
             <li class="coins__item">
               <img
-                src="./../assets/ghst.svg"
+                src="./../../assets/ghst.svg"
                 alt=""
                 class="coins__item-image"
               />
@@ -103,43 +119,55 @@
             </li>
             <li class="coins__item">
               <img
-                src="./../assets/sand.svg"
+                src="./../../assets/sand.svg"
                 alt=""
                 class="coins__item-image"
               />
               <p class="coins__item-name">sand</p>
             </li>
             <li class="coins__item">
-              <img src="./../assets/enj.svg" alt="" class="coins__item-image" />
+              <img
+                src="./../../assets/enj.svg"
+                alt=""
+                class="coins__item-image"
+              />
               <p class="coins__item-name">enj</p>
             </li>
             <li class="coins__item">
               <img
-                src="./../assets/rari.svg"
+                src="./../../assets/rari.svg"
                 alt=""
                 class="coins__item-image"
               />
               <p class="coins__item-name">rari</p>
             </li>
             <li class="coins__item">
-              <img src="./../assets/chz.svg" alt="" class="coins__item-image" />
+              <img
+                src="./../../assets/chz.svg"
+                alt=""
+                class="coins__item-image"
+              />
               <p class="coins__item-name">chz</p>
             </li>
             <li class="coins__item">
               <img
-                src="./../assets/meme.svg"
+                src="./../../assets/meme.svg"
                 alt=""
                 class="coins__item-image"
               />
               <p class="coins__item-name">meme</p>
             </li>
             <li class="coins__item">
-              <img src="./../assets/axs.svg" alt="" class="coins__item-image" />
+              <img
+                src="./../../assets/axs.svg"
+                alt=""
+                class="coins__item-image"
+              />
               <p class="coins__item-name">axs</p>
             </li>
             <li class="coins__item">
               <img
-                src="./../assets/mana.svg"
+                src="./../../assets/mana.svg"
                 alt=""
                 class="coins__item-image"
               />

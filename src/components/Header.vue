@@ -1,28 +1,27 @@
 <template>
   <header class="header">
-    <div @click="setLine(0)">
-      <router-link to="/" class="logo">
+    <div>
+      <a href="/" class="logo">
         <img src="../assets/Logo.svg" alt="" class="logo__image" />
         <h1 class="logo__text">CyberTime farm</h1>
-      </router-link>
+      </a>
     </div>
     <nav class="header__nav">
-      <div class="header__nav-line" id="line"></div>
       <ul class="header__nav-items">
-        <li class="header__nav-item" @click="setLine(0)">
-          <router-link to="/" class="header__nav-link">Home</router-link>
+        <li class="header__nav-item">
+          <router-link to="/" class="header__nav-link" exact>Home</router-link>
         </li>
-        <li class="header__nav-item" @click="setLine(90)">
+        <li class="header__nav-item">
           <router-link to="/farm" class="header__nav-link">Farm</router-link>
         </li>
-        <li class="header__nav-item" @click="setLine(182)">
+        <li class="header__nav-item">
           <a
             href="https://docs.cybertime.finance/community/evangelist-program"
             class="header__nav-link"
             >Share</a
           >
         </li>
-        <li class="header__nav-item" @click="setLine(277)">
+        <li class="header__nav-item">
           <a
             href=" https://docs.cybertime.finance/litepaper"
             class="header__nav-link"
@@ -31,90 +30,81 @@
         </li>
       </ul>
     </nav>
+    <button v-if="!isLogin" @click="goToLoginPage" class="wallet__login">
+      Connect
+    </button>
+    <div v-else class="wallet">
+      <img src="./../assets/avatar.svg" alt="" class="wallet__img" />
+      <p class="wallet__id">0xvB8k...9856</p>
+      <img src="./../assets/icon-success.svg" alt="" class="wallet__state" />
+    </div>
   </header>
 </template>
 
 <script>
 export default {
   name: "Header",
-  data() {
-    return {};
-  },
   computed: {
-    lineClassObject() {
-      if (this.$route.name == "Home") {
-        return {
-          "header__nav-line--first": true,
-        };
-      } else if (this.$route.name == "Farm") {
-        return {
-          "header__nav-line--second": true,
-        };
-      } else if (this.$route.name == "Invite") {
-        return {
-          "header__nav-line--third": true,
-        };
-      } else if (this.$route.name == "About") {
-        return {
-          "header__nav-line--fourth": true,
-        };
-      }
-      return {
-        left: 0,
-      };
+    isLogin() {
+      return this.$store.state.walletID;
     },
   },
   methods: {
-    setLine(nextPosition) {
-      const line = document.getElementById("line");
-      const style = getComputedStyle(line);
-      const left = style.getPropertyValue("left");
-      if (parseInt(left) < nextPosition) {
-        const timer = setInterval(function () {
-          const line = document.getElementById("line");
-          const style = getComputedStyle(line);
-          const left = style.getPropertyValue("left");
-          if (parseInt(left) >= nextPosition) {
-            clearInterval(timer);
-            return;
-          }
-
-          line.style.left = parseInt(left) + 1 + "px";
-        }, 2);
-      } else {
-        const timer = setInterval(function () {
-          const line = document.getElementById("line");
-          const style = getComputedStyle(line);
-          const left = style.getPropertyValue("left");
-          if (parseInt(left) <= nextPosition) {
-            clearInterval(timer);
-            return;
-          }
-          line.style.left = parseInt(left) - 1 + "px";
-        }, 2);
+    goToLoginPage() {
+      if (this.$route.path != "/farm/login") {
+        this.$router.push("/farm/login");
       }
     },
+    // setLine(nextPosition) {
+    //   const line = document.getElementById("line");
+    //   const style = getComputedStyle(line);
+    //   const left = style.getPropertyValue("left");
+    //   if (parseInt(left) < nextPosition) {
+    //     const timer = setInterval(function () {
+    //       const line = document.getElementById("line");
+    //       const style = getComputedStyle(line);
+    //       const left = style.getPropertyValue("left");
+    //       if (parseInt(left) >= nextPosition) {
+    //         clearInterval(timer);
+    //         return;
+    //       }
+
+    //       line.style.left = parseInt(left) + 1 + "px";
+    //     }, 2);
+    //   } else {
+    //     const timer = setInterval(function () {
+    //       const line = document.getElementById("line");
+    //       const style = getComputedStyle(line);
+    //       const left = style.getPropertyValue("left");
+    //       if (parseInt(left) <= nextPosition) {
+    //         clearInterval(timer);
+    //         return;
+    //       }
+    //       line.style.left = parseInt(left) - 1 + "px";
+    //     }, 2);
+    //   }
+    // },
   },
   created() {
-    const unwatch = this.$watch(
-      () => this.$route,
-      (route) => {
-        if (route.name == "Home") {
-          this.setLine(0);
-        } else if (route.name == "Farm") {
-          this.setLine(90);
-        } else if (route.name == "Invite") {
-          this.setLine(182);
-        } else if (route.name == "About") {
-          this.setLine(277);
-        }
-        unwatch();
-      }
-    );
-  },
-  beforeDestroy() {
-    const line = document.getElementById("line");
-    line.style.removeProperty("left");
+    //   const unwatch = this.$watch(
+    //     () => this.$route,
+    //     (route) => {
+    //       if (route.name == "Home") {
+    //         this.setLine(0);
+    //       } else if (route.name == "Farm") {
+    //         this.setLine(90);
+    //       } else if (route.name == "Invite") {
+    //         this.setLine(182);
+    //       } else if (route.name == "About") {
+    //         this.setLine(277);
+    //       }
+    //       unwatch();
+    //     }
+    //   );
+    // },
+    // beforeDestroy() {
+    //   const line = document.getElementById("line");
+    //   line.style.removeProperty("left");
   },
 };
 </script>
@@ -122,13 +112,13 @@ export default {
 <style lang="scss">
 .header {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin: 0 auto;
   width: 1200px;
   padding: 35px 10px;
   box-sizing: border-box;
   &__nav {
-    margin-left: 178px;
+    margin-left: 100px;
     position: relative;
   }
   &__nav-items {
@@ -185,6 +175,76 @@ export default {
     letter-spacing: 0.18em;
     color: #fff;
     text-decoration: none;
+  }
+}
+.wallet {
+  width: 253px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__login {
+    display: block;
+    text-decoration: none;
+    background: rgba(217, 214, 220, 0.12);
+    width: 147px;
+    height: 40px;
+    border-radius: 4px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.18em;
+    color: #fff;
+    padding-left: 49px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-right: 11px;
+    box-sizing: border-box;
+    position: relative;
+    border: none;
+    cursor: pointer;
+    &:before {
+      content: "";
+      display: block;
+      width: 24px;
+      height: 24px;
+      background: url("./../assets/walletwallet.svg");
+      position: absolute;
+      top: 8px;
+      left: 11px;
+    }
+  }
+
+  &__img {
+    display: block;
+    width: 40px;
+    height: 40px;
+  }
+  &__id {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.18em;
+    color: #fff;
+  }
+  &__state {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+}
+.router-link-active {
+  position: relative;
+  &:before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    bottom: -14px;
   }
 }
 </style>
