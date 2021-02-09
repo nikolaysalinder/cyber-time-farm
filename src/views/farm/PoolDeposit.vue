@@ -62,7 +62,35 @@
       </div>
     </div>
     <a href="#" class="pool-deposit__link">Get CTF/ETH LP on Uniswap</a>
-    <DepositModal v-if="showDepositModal" @close="showDepositModal = false" />
+    <Modal v-if="showDepositModal" :isLargeModal="true">
+      <h3 slot="header" class="primary-modal__title">Deposit</h3>
+      <div slot="body" class="primary-modal__fieldset">
+        <label class="primary-modal__label" for="deposit-input"
+          >{{ depositMax }} CTF/ETH-LP Available</label
+        >
+        <div class="primary-modal__input-wrapper">
+          <input
+            class="primary-modal__input"
+            type="number"
+            id="deposit-input"
+            min="0"
+            v-model="depositSum"
+          />
+          <button @click="setDepositMax" class="primary-modal__button-max">
+            Max
+          </button>
+        </div>
+      </div>
+      <div slot="footer" class="primary-modal__buttons">
+        <button
+          @click="closeDepositModal"
+          class="primary-modal__button--secondary"
+        >
+          Cancel
+        </button>
+        <button class="primary-modal__button--primary">Confirm</button>
+      </div>
+    </Modal>
     <Modal v-if="showConfirmationModal" @close="showConfirmationModal = false">
       <p slot="header" class="modal__subtitle">Waiting for Confirmation</p>
       <div slot="body" class="modal__body">
@@ -74,29 +102,39 @@
         <h3 class="modal__title">Approve CTF/ETH LP</h3>
         <p class="modal__text">Please confirm this transaction</p>
       </div>
+      <div slot="footer">
+        <button class="modal__button" @click="showConfirmationModal = false">
+          Close
+        </button>
+      </div>
     </Modal>
   </div>
 </template>
 
 <script>
-import DepositModal from "@/components/modals/DepositModal.vue";
 import Modal from "@/components/modals/Modal.vue";
 export default {
   data() {
     return {
+      depositSum: 0,
+      depositMax: 499,
       showConfirmationModal: false,
-      currencyMax: 499,
       currency: 0,
       showDepositModal: false,
     };
   },
   components: {
-    DepositModal,
     Modal,
   },
   methods: {
+    setDepositMax() {
+      this.depositSum = this.depositMax;
+    },
     openDepositModal() {
       this.showDepositModal = true;
+    },
+    closeDepositModal() {
+      this.showDepositModal = false;
     },
   },
 };

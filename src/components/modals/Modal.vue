@@ -2,7 +2,10 @@
   <transition name="modal">
     <div class="modal__mask">
       <div class="modal__wrapper">
-        <div class="modal__container">
+        <div
+          class="modal__container"
+          :class="{ 'modal__container--large': isLargeModal }"
+        >
           <div class="modal__header">
             <slot name="header"> default header </slot>
           </div>
@@ -13,9 +16,9 @@
 
           <div class="modal__footer">
             <slot name="footer">
-              <button class="modal__button" @click="$emit('close')">
+              <!--  <button class="modal__button" @click="$emit('close')">
                 Close
-              </button>
+              </button> -->
             </slot>
           </div>
         </div>
@@ -26,12 +29,11 @@
 
 <script>
 export default {
-  props: ["isSuccess"],
+  props: ["isLargeModal", "isSuccessModal"],
   created() {
     if (this.isSuccessModal) {
       setTimeout(() => {
         this.$emit("close");
-        this.$router.push("/farm/pool-deposit");
       }, 2000);
     }
   },
@@ -67,6 +69,11 @@ export default {
     border-radius: 2px;
     box-shadow: 0px 4px 27px 7px rgba(21, 10, 34, 0.56);
     transition: all 0.3s ease;
+    &--large {
+      width: 439px;
+      box-sizing: border-box;
+      padding: 20px 20px 33px;
+    }
   }
   &__subtitle {
     font-family: "Roboto", sans-serif;
@@ -153,5 +160,135 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.primary-modal {
+  &__title {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    letter-spacing: 0.075em;
+    color: #ffffff;
+    margin-top: 0;
+  }
+  &__fieldset {
+    margin-top: 20px;
+    text-align: left;
+  }
+  &__label {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.14em;
+    color: #a9a4af;
+    text-align: left;
+  }
+  &__input-wrapper {
+    margin-top: 8px;
+    position: relative;
+  }
+  &__input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 16px 80px 16px 16px;
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 8px;
+    border: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.14em;
+    color: #fff;
+  }
+  &__button-max {
+    display: block;
+    border: 1px solid #d9d6dc;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    padding: 5px 10px;
+    background: transparent;
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    &:hover {
+      border: 1px solid #ffffff;
+      box-shadow: 0px 0px 2px 1px rgba(255, 255, 255, 0.48);
+    }
+  }
+  &__buttons {
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__button--secondary {
+    border: 1px solid #d9d6dc;
+    box-sizing: border-box;
+    border-radius: 8px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #d9d6dc;
+    background: transparent;
+    width: 203px;
+    height: 36px;
+    &:hover {
+      border: 1px solid #ffffff;
+      box-shadow: 0px 0px 2px 1px rgba(255, 255, 255, 0.48);
+    }
+  }
+  &__button--primary {
+    width: 184px;
+    height: 36px;
+    background: linear-gradient(
+        0deg,
+        rgba(255, 205, 214, 0.32),
+        rgba(255, 205, 214, 0.32)
+      ),
+      radial-gradient(
+        561.96% 561.96% at 8.26% -222.83%,
+        #df1e82 37.07%,
+        #fce153 100%
+      );
+    border-radius: 8px;
+    border: none;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    &:hover {
+      background: radial-gradient(
+        561.96% 561.96% at 8.26% -222.83%,
+        #df1e82 37.07%,
+        #fce153 100%
+      );
+    }
+  }
 }
 </style>

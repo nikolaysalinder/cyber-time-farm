@@ -88,6 +88,10 @@ export default {
     text-transform: uppercase;
     color: #d9d6dc;
     padding: 7.5px;
+    &:hover {
+      border: 1px solid #ffffff;
+      box-shadow: 0px 0px 2px 1px rgba(255, 255, 255, 0.48);
+    }
   }
 }
 </style>

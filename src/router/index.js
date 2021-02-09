@@ -30,12 +30,12 @@ const routes = [
       },
       {
         path: "/",
-        name: "Farm",
+        name: "Pools",
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
         component: () =>
-          import(/* webpackChunkName: "Farm" */ "../views/farm/Farm.vue"),
+          import(/* webpackChunkName: "Pools" */ "../views/farm/Pools.vue"),
         meta: {
           requiresAuth: true,
         },

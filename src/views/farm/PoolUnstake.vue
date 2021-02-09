@@ -25,10 +25,16 @@
           </h3>
           <p class="pool-unstake__item-text">Stake ballance</p>
           <div class="pool-unstake__item-btns">
-            <button class="pool-unstake__item-btn pool-unstake__item-btn--sm">
+            <button
+              @click="openUnstakeModal"
+              class="pool-unstake__item-btn pool-unstake__item-btn--sm"
+            >
               Unstake
             </button>
-            <button class="pool-unstake__item-btn pool-unstake__item-btn--sm">
+            <button
+              @click="openDepositModal"
+              class="pool-unstake__item-btn pool-unstake__item-btn--sm"
+            >
               Deposit
             </button>
           </div>
@@ -44,7 +50,9 @@
             CTF
           </h3>
           <p class="pool-unstake__item-text">Unclaimed Profit</p>
-          <button class="pool-unstake__item-btn">claim profit</button>
+          <button @click="openProfitModal" class="pool-unstake__item-btn">
+            claim profit
+          </button>
         </div>
       </div>
     </div>
@@ -67,56 +75,151 @@
       </div>
     </div>
     <a href="#" class="pool-unstake__link">Get CTF/ETH LP on Uniswap</a>
-    <Modal v-if="showConfirmationModal" @close="showConfirmationModal = false">
-      <p slot="header" class="modal__subtitle">Waiting for Confirmation</p>
-      <div slot="body" class="modal__body">
-        <img
-          src="./../../assets/preloader.svg"
-          alt=""
-          class="modal__preloader"
-        />
-        <h3 class="modal__title">Approve CTF/ETH LP</h3>
-        <p class="modal__text">Please confirm this transaction</p>
+    <Modal v-if="showUnstakeModal" :isLargeModal="true">
+      <h3 slot="header" class="primary-modal__title">Unstake</h3>
+      <div slot="body" class="primary-modal__fieldset">
+        <label class="primary-modal__label" for="deposit-input"
+          >{{ unstakeMax }} CTF/ETH-LP Available</label
+        >
+        <div class="primary-modal__input-wrapper">
+          <input
+            class="primary-modal__input"
+            type="number"
+            id="deposit-input"
+            min="0"
+            v-model="unstakeSum"
+          />
+          <button @click="setUnstakeMax" class="primary-modal__button-max">
+            Max
+          </button>
+        </div>
+      </div>
+      <div slot="footer" class="primary-modal__buttons">
+        <button
+          @click="closeUnstakeModal"
+          class="primary-modal__button--secondary"
+        >
+          Cancel
+        </button>
+        <button class="primary-modal__button--primary">Confirm</button>
       </div>
     </Modal>
-    <Modal
-      v-if="showSuccessModal"
-      :isSuccessModal="true"
-      @close="showSuccessModal = false"
-    >
-      <p slot="header" class="modal__subtitle">Successfully</p>
-      <div slot="body" class="modal__body">
-        <img src="./../../assets/success.svg" alt="" class="modal__success" />
-        <h3 class="modal__title">Transaction confirmed</h3>
+    <Modal v-if="showDepositModal" :isLargeModal="true">
+      <h3 slot="header" class="primary-modal__title">Deposit</h3>
+      <div slot="body" class="primary-modal__fieldset">
+        <label class="primary-modal__label" for="deposit-input"
+          >{{ depositMax }} CTF/ETH-LP Available</label
+        >
+        <div class="primary-modal__input-wrapper">
+          <input
+            class="primary-modal__input"
+            type="number"
+            id="deposit-input"
+            min="0"
+            v-model="depositSum"
+          />
+          <button @click="setDepositMax" class="primary-modal__button-max">
+            Max
+          </button>
+        </div>
       </div>
-      <div slot="footer"></div>
+      <div slot="footer" class="primary-modal__buttons">
+        <button
+          @click="closeDepositModal"
+          class="primary-modal__button--secondary"
+        >
+          Cancel
+        </button>
+        <button class="primary-modal__button--primary">Confirm</button>
+      </div>
     </Modal>
-    <Modal v-if="showErrorModal" @close="showErrorModal = false">
-      <p slot="header" class="modal__subtitle">Transaction Error</p>
-      <div slot="body" class="modal__body">
-        <img src="./../../assets/error.svg" alt="" class="modal__success" />
-        <h3 class="modal__title">Transaction rejected</h3>
-        <p class="modal__text">
-          Metamask Tx Signature: User denied transaction signature
-        </p>
+    <Modal v-if="showProfitModal" :isLargeModal="true">
+      <h3 slot="header" class="primary-modal__title">Claim profit</h3>
+      <div slot="body" class="primary-modal__fieldset">
+        <label class="primary-modal__label" for="deposit-input"
+          >{{ profitMax }} CTF/ETH-LP Available</label
+        >
+        <div class="primary-modal__input-wrapper">
+          <input
+            class="primary-modal__input"
+            type="number"
+            id="deposit-input"
+            min="0"
+            v-model="profitSum"
+          />
+          <button @click="setProfitMax" class="primary-modal__button-max">
+            Max
+          </button>
+        </div>
+      </div>
+      <div slot="footer" class="primary-modal__buttons">
+        <button
+          @click="closeProfitModal"
+          class="primary-modal__button--secondary"
+        >
+          Cancel
+        </button>
+        <button class="primary-modal__button--primary">Confirm</button>
       </div>
     </Modal>
   </div>
 </template>
 
 <script>
+import Modal from "@/components/modals/Modal.vue";
 export default {
   data() {
     return {
-      showConfirmationModal: false,
+      showUnstakeModal: false,
+      showUnstakeConfirmationModal: false,
       showSuccessModal: false,
       showErrorModal: false,
+      unstakeSum: 0,
+      unstakeMax: 499,
+      showDepositModal: false,
+      depositSum: 0,
+      depositMax: 499,
+      showProfitModal: false,
+      profitSum: 0,
+      profitMax: 0.3746553,
     };
+  },
+  components: {
+    Modal,
+  },
+  methods: {
+    openUnstakeModal() {
+      this.showUnstakeModal = true;
+    },
+    closeUnstakeModal() {
+      this.showUnstakeModal = false;
+    },
+    setUnstakeMax() {
+      this.unstakeSum = this.unstakeMax;
+    },
+    openDepositModal() {
+      this.showDepositModal = true;
+    },
+    closeDepositModal() {
+      this.showDepositModal = false;
+    },
+    setDepositMax() {
+      this.depositSum = this.depositMax;
+    },
+    setProfitMax() {
+      this.profitSum = this.profitMax;
+    },
+    closeProfitModal() {
+      this.showProfitModal = false;
+    },
+    openProfitModal() {
+      this.showProfitModal = true;
+    },
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .pool-unstake {
   width: 1200px;
   margin: 0 auto;
