@@ -35,7 +35,7 @@
     </button>
     <div v-else class="wallet">
       <img src="./../assets/avatar.svg" alt="" class="wallet__img" />
-      <p class="wallet__id">0xvB8k...9856</p>
+      <p class="wallet__id">{{ shortWalletID }}</p>
       <img src="./../assets/icon-success.svg" alt="" class="wallet__state" />
     </div>
   </header>
@@ -47,6 +47,9 @@ export default {
   computed: {
     isLogin() {
       return this.$store.state.walletID;
+    },
+    shortWalletID() {
+      return this.$store.getters.getShortWalletID;
     },
   },
   methods: {

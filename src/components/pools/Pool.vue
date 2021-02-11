@@ -1,7 +1,11 @@
 <template>
   <div class="pool">
     <div class="pool__header">
-      <img :src="require(`./../../${pool.img}`)" alt="" class="pool__img" />
+      <img
+        :src="require(`./../../assets/${pool.name}.svg`)"
+        alt=""
+        class="pool__img"
+      />
     </div>
     <div class="pool__body">
       <h4 class="pool__name">{{ pool.name }}</h4>
@@ -9,7 +13,7 @@
         <p class="pool__text">Total stake</p>
         <p class="pool__value">{{ pool.value }}</p>
       </div>
-      <button class="pool__btn">Select</button>
+      <button @click="selectPool(pool)" class="pool__btn">Select</button>
     </div>
   </div>
 </template>
@@ -17,6 +21,13 @@
 <script>
 export default {
   props: ["pool"],
+  methods: {
+    selectPool(pool) {
+      this.$store.commit("setCurrentCurrency", pool);
+      this.$store.commit("setMiniPool", true);
+      this.$router.push({ path: "/farm/pool-approve" });
+    },
+  },
 };
 </script>
 

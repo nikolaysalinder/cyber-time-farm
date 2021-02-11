@@ -1,9 +1,11 @@
 <template>
   <div class="pool-unstake">
-    <h1 class="pool-unstake__title">CTF/ETH LP pool</h1>
-    <h2 class="pool-unstake__subtitle">
+    <h1 v-if="!isMiniPool" class="pool-unstake__title">CTF/ETH LP pool</h1>
+    <h1 v-else class="pool-unstake__title">USDC pool</h1>
+    <h2 v-if="isMiniPool" class="pool-unstake__subtitle">
       Provide Liquidity to NFT on Uniswap and Earn GHST Shares
     </h2>
+    <h2 v-else class="pool-unstake__subtitle">Stake USDC / Earn NFT</h2>
     <div class="pool-unstake__items">
       <div class="pool-unstake__item">
         <div class="pool-unstake__item-header">
@@ -162,6 +164,144 @@
         <button class="primary-modal__button--primary">Confirm</button>
       </div>
     </Modal>
+    <!-- Unset modals-->
+    <Modal
+      v-if="showUnstakeConfirmationModal"
+      @close="showUnstakeConfirmationModal = false"
+    >
+      <p slot="header" class="modal__subtitle">Waiting for Confirmation</p>
+      <div slot="body" class="modal__body">
+        <img
+          src="./../../assets/preloader.svg"
+          alt=""
+          class="modal__preloader"
+        />
+        <h3 class="modal__title">Approve unstake CTF/ETH LP</h3>
+        <p class="modal__text">Please confirm this transaction</p>
+      </div>
+    </Modal>
+    <Modal
+      v-if="showUnstakeSuccessModal"
+      :isSuccessModal="true"
+      @close="showUnstakeSuccessModal = false"
+    >
+      <p slot="header" class="modal__subtitle">Successfully</p>
+      <div slot="body" class="modal__body">
+        <img src="./../../assets/success.svg" alt="" class="modal__success" />
+        <h3 class="modal__title">Transaction confirmed</h3>
+      </div>
+      <div slot="footer"></div>
+    </Modal>
+    <Modal v-if="showUnstakeErrorModal" @close="showUnstakeErrorModal = false">
+      <p slot="header" class="modal__subtitle">Transaction Error</p>
+      <div slot="body" class="modal__body">
+        <img src="./../../assets/error.svg" alt="" class="modal__success" />
+        <h3 class="modal__title">Transaction rejected</h3>
+        <p class="modal__text">
+          Metamask Tx Signature: User denied transaction signature
+        </p>
+      </div>
+      <div slot="footer" class="modal__footer">
+        <button
+          @click="showUnstakeErrorModal = false"
+          class="modal__button modal__button--reject"
+        >
+          Close
+        </button>
+      </div>
+    </Modal>
+    <!-- Deposit modals -->
+    <Modal
+      v-if="showDepositConfirmationModal"
+      @close="showDepositConfirmationModal = false"
+    >
+      <p slot="header" class="modal__subtitle">Waiting for Confirmation</p>
+      <div slot="body" class="modal__body">
+        <img
+          src="./../../assets/preloader.svg"
+          alt=""
+          class="modal__preloader"
+        />
+        <h3 class="modal__title">Approve deposit CTF/ETH LP</h3>
+        <p class="modal__text">Please confirm this transaction</p>
+      </div>
+    </Modal>
+    <Modal
+      v-if="showDepositSuccessModal"
+      :isSuccessModal="true"
+      @close="showDepositSuccessModal = false"
+    >
+      <p slot="header" class="modal__subtitle">Successfully</p>
+      <div slot="body" class="modal__body">
+        <img src="./../../assets/success.svg" alt="" class="modal__success" />
+        <h3 class="modal__title">Transaction confirmed</h3>
+      </div>
+      <div slot="footer"></div>
+    </Modal>
+    <Modal v-if="showDepositErrorModal" @close="showDepositErrorModal = false">
+      <p slot="header" class="modal__subtitle">Transaction Error</p>
+      <div slot="body" class="modal__body">
+        <img src="./../../assets/error.svg" alt="" class="modal__success" />
+        <h3 class="modal__title">Transaction rejected</h3>
+        <p class="modal__text">
+          Metamask Tx Signature: User denied transaction signature
+        </p>
+      </div>
+      <div slot="footer" class="modal__footer">
+        <button
+          @click="showDepositErrorModal = false"
+          class="modal__button modal__button--reject"
+        >
+          Close
+        </button>
+      </div>
+    </Modal>
+    <!-- Claim profit modals -->
+    <Modal
+      v-if="showProfitConfirmationModal"
+      @close="showProfitConfirmationModal = false"
+    >
+      <p slot="header" class="modal__subtitle">Waiting for Confirmation</p>
+      <div slot="body" class="modal__body">
+        <img
+          src="./../../assets/preloader.svg"
+          alt=""
+          class="modal__preloader"
+        />
+        <h3 class="modal__title">Approve claim CTF/ETH LP</h3>
+        <p class="modal__text">Please confirm this transaction</p>
+      </div>
+    </Modal>
+    <Modal
+      v-if="showProfitSuccessModal"
+      :isSuccessModal="true"
+      @close="showProfitSuccessModal = false"
+    >
+      <p slot="header" class="modal__subtitle">Successfully</p>
+      <div slot="body" class="modal__body">
+        <img src="./../../assets/success.svg" alt="" class="modal__success" />
+        <h3 class="modal__title">Transaction confirmed</h3>
+      </div>
+      <div slot="footer"></div>
+    </Modal>
+    <Modal v-if="showProfitErrorModal" @close="showProfitErrorModal = false">
+      <p slot="header" class="modal__subtitle">Transaction Error</p>
+      <div slot="body" class="modal__body">
+        <img src="./../../assets/error.svg" alt="" class="modal__success" />
+        <h3 class="modal__title">Transaction rejected</h3>
+        <p class="modal__text">
+          Metamask Tx Signature: User denied transaction signature
+        </p>
+      </div>
+      <div slot="footer" class="modal__footer">
+        <button
+          @click="showProfitErrorModal = false"
+          class="modal__button modal__button--reject"
+        >
+          Close
+        </button>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -172,17 +312,28 @@ export default {
     return {
       showUnstakeModal: false,
       showUnstakeConfirmationModal: false,
-      showSuccessModal: false,
-      showErrorModal: false,
+      showUnstakeSuccessModal: false,
+      showUnstakeErrorModal: false,
       unstakeSum: 0,
       unstakeMax: 499,
       showDepositModal: false,
+      showDepositConfirmationModal: false,
+      showDepositSuccessModal: false,
+      showDepositErrorModal: false,
       depositSum: 0,
       depositMax: 499,
       showProfitModal: false,
+      showProfitConfirmationModal: false,
+      showProfitSuccessModal: false,
+      showProfitErrorModal: false,
       profitSum: 0,
       profitMax: 0.3746553,
     };
+  },
+  computed: {
+    isMiniPool() {
+      return this.$store.getters.getIsMiniPool;
+    },
   },
   components: {
     Modal,

@@ -16,9 +16,9 @@
 
           <div class="modal__footer">
             <slot name="footer">
-              <!--  <button class="modal__button" @click="$emit('close')">
+              <button class="modal__button" @click="$emit('close')">
                 Close
-              </button> -->
+              </button>
             </slot>
           </div>
         </div>
@@ -127,6 +127,9 @@ export default {
     line-height: 14px;
     letter-spacing: 0.14em;
     color: #a9a4af;
+    &--reject {
+      background: rgba(255, 139, 198, 0.2);
+    }
   }
 }
 

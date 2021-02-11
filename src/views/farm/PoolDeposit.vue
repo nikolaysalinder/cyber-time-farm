@@ -1,9 +1,11 @@
 <template>
   <div class="pool-deposit">
-    <h1 class="pool-deposit__title">CTF/ETH LP pool</h1>
-    <h2 class="pool-deposit__subtitle">
+    <h1 v-if="!isMiniPool" class="pool-deposit__title">CTF/ETH LP pool</h1>
+    <h1 v-else class="pool-deposit__title">USDC pool</h1>
+    <h2 v-if="isMiniPool" class="pool-deposit__subtitle">
       Provide Liquidity to NFT on Uniswap and Earn GHST Shares
     </h2>
+    <h2 v-else class="pool-deposit__subtitle">Stake USDC / Earn NFT</h2>
     <div class="pool-deposit__items">
       <div class="pool-deposit__item">
         <div class="pool-deposit__item-header">
@@ -91,6 +93,7 @@
         <button class="primary-modal__button--primary">Confirm</button>
       </div>
     </Modal>
+
     <Modal v-if="showConfirmationModal" @close="showConfirmationModal = false">
       <p slot="header" class="modal__subtitle">Waiting for Confirmation</p>
       <div slot="body" class="modal__body">
@@ -99,11 +102,36 @@
           alt=""
           class="modal__preloader"
         />
-        <h3 class="modal__title">Approve CTF/ETH LP</h3>
+        <h3 class="modal__title">Deposit CTF/ETH LP</h3>
         <p class="modal__text">Please confirm this transaction</p>
       </div>
-      <div slot="footer">
-        <button class="modal__button" @click="showConfirmationModal = false">
+    </Modal>
+    <Modal
+      v-if="showSuccessModal"
+      :isSuccessModal="true"
+      @close="showSuccessModal = false"
+    >
+      <p slot="header" class="modal__subtitle">Successfully</p>
+      <div slot="body" class="modal__body">
+        <img src="./../../assets/success.svg" alt="" class="modal__success" />
+        <h3 class="modal__title">Transaction confirmed</h3>
+      </div>
+      <div slot="footer"></div>
+    </Modal>
+    <Modal v-if="showErrorModal" @close="showErrorModal = false">
+      <p slot="header" class="modal__subtitle">Transaction Error</p>
+      <div slot="body" class="modal__body">
+        <img src="./../../assets/error.svg" alt="" class="modal__success" />
+        <h3 class="modal__title">Transaction rejected</h3>
+        <p class="modal__text">
+          Metamask Tx Signature: User denied transaction signature
+        </p>
+      </div>
+      <div slot="footer" class="modal__footer">
+        <button
+          @click="showErrorModal = false"
+          class="modal__button modal__button--reject"
+        >
           Close
         </button>
       </div>
@@ -118,10 +146,17 @@ export default {
     return {
       depositSum: 0,
       depositMax: 499,
-      showConfirmationModal: false,
       currency: 0,
       showDepositModal: false,
+      showConfirmationModal: false,
+      showSuccessModal: false,
+      showErrorModal: false,
     };
+  },
+  computed: {
+    isMiniPool() {
+      return this.$store.getters.getIsMiniPool;
+    },
   },
   components: {
     Modal,

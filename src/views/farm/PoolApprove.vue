@@ -1,9 +1,11 @@
 <template>
   <div class="pool-approve">
-    <h1 class="pool-approve__title">CTF/ETH LP pool</h1>
-    <h2 class="pool-approve__subtitle">
+    <h1 v-if="!isMiniPool" class="pool-approve__title">CTF/ETH LP pool</h1>
+    <h1 v-else class="pool-approve__title">USDC pool</h1>
+    <h2 v-if="!isMiniPool" class="pool-approve__subtitle">
       Provide Liquidity to CTF/ETH on Uniswap and Earn CFT Shares
     </h2>
+    <h2 v-else class="pool-approve__subtitle">Stake USDC / Earn NFT</h2>
     <div class="pool-approve__items">
       <div class="pool-approve__item">
         <div class="pool-approve__item-header">
@@ -93,6 +95,14 @@
           Metamask Tx Signature: User denied transaction signature
         </p>
       </div>
+      <div slot="footer" class="modal__footer">
+        <button
+          @click="showErrorModal = false"
+          class="modal__button modal__button--reject"
+        >
+          Close
+        </button>
+      </div>
     </Modal>
   </div>
 </template>
@@ -106,6 +116,11 @@ export default {
       showSuccessModal: false,
       showErrorModal: false,
     };
+  },
+  computed: {
+    isMiniPool() {
+      return this.$store.getters.getIsMiniPool;
+    },
   },
   components: {
     Modal,
