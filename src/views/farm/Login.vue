@@ -1,12 +1,18 @@
 <template>
   <div class="login">
     <p class="login__text">Please connect your wallet to continue</p>
-    <button class="login__button">Connect wallet</button>
+    <button @click="setWalletID" class="login__button">Connect wallet</button>
   </div>
 </template>
 <script>
 export default {
   name: "login",
+  methods: {
+    setWalletID() {
+      this.$store.commit("setWalletID");
+      this.$router.push({ path: "" });
+    },
+  },
 };
 </script>
 

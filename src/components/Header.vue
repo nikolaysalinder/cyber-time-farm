@@ -15,18 +15,15 @@
           <router-link to="/farm" class="header__nav-link">Farm</router-link>
         </li>
         <li class="header__nav-item">
-          <a
-            href="https://docs.cybertime.finance/community/evangelist-program"
-            class="header__nav-link"
-            >Share</a
+          <router-link to="/share" class="header__nav-link">Share</router-link>
+        </li>
+        <li class="header__nav-item">
+          <router-link to="/leaderboard" class="header__nav-link"
+            >Leaderboard</router-link
           >
         </li>
         <li class="header__nav-item">
-          <a
-            href=" https://docs.cybertime.finance/litepaper"
-            class="header__nav-link"
-            >About</a
-          >
+          <router-link to="/vote" class="header__nav-link">Vote</router-link>
         </li>
       </ul>
     </nav>

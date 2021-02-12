@@ -5,12 +5,15 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    walletID: "0xvB8k;asdjksdjfjasdkfjksjdfkf;af9856",
+    walletID: null,
     isMiniPool: false,
     currentCurrency: "",
     prevPagePath: "",
   },
   mutations: {
+    setWalletID(state) {
+      state.walletID = "0xvB8k;asdjksdjfjasdkfjksjdfkf;af9856";
+    },
     setPrevPagePath(state, path) {
       state.prevPagePath = path;
     },
